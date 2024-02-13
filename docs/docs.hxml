@@ -1,4 +1,5 @@
 -cp ../src
+-lib haxeparser
 -lib mxhx-parser
 -lib mxhx-resolver
 -D doc_gen
