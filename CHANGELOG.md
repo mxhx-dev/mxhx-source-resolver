@@ -1,0 +1,5 @@
+# MXHX Source Resolver Change Log
+
+## 1.0.0 (????-??-??)
+
+- Initial release

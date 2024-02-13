@@ -1,0 +1,8 @@
+-cp ../src
+-cp src
+-lib haxeparser
+-lib mxhx-parser
+-lib mxhx-resolver
+-lib utest
+--resource mxhx-manifest.xml@mxhx-manifest
+--main Main
