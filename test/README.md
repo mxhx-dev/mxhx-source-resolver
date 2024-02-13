@@ -28,15 +28,6 @@ haxe test.hxml --hl bin/test.hl
 hl bin/test.hl
 ```
 
-## Run Node.js tests
-
-To run tests with Node.js, run the following command:
-
-```sh
-haxe test.hxml --js bin/test.js
-node bin/test.js
-```
-
 ## Run C++ tests
 
 To run tests with a native C++ executable, run the following command:
