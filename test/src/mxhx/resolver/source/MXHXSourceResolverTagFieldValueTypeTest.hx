@@ -314,6 +314,23 @@ class MXHXSourceResolverTagFieldValueTypeTest extends Test {
 		Assert.equals("fixtures.TestPropertyAbstractEnum", typeSymbol.qname);
 	}
 
+	public function testResolveFieldValueTypeAbstractEnumValue1():Void {
+		var offsetTag = getOffsetTag('
+			<tests:TestPropertiesClass xmlns:mx="https://ns.mxhx.dev/2024/basic" xmlns:tests="https://ns.mxhx.dev/2024/tests">
+				<tests:abstractEnumValue>
+					<tests:TestPropertyAbstractEnum.Value1/>
+				</tests:abstractEnumValue>
+			</tests:TestPropertiesClass>
+		', 188);
+		Assert.notNull(offsetTag);
+
+		var resolved = resolver.resolveTag(offsetTag);
+		Assert.notNull(resolved);
+		Assert.isOfType(resolved, IMXHXEnumFieldSymbol);
+		var fieldSymbol:IMXHXEnumFieldSymbol = cast resolved;
+		Assert.equals("Value1", fieldSymbol.name);
+	}
+
 	public function testResolveFieldValueTypeEnumValue():Void {
 		var offsetTag = getOffsetTag('
 			<tests:TestPropertiesClass xmlns:mx="https://ns.mxhx.dev/2024/basic" xmlns:tests="https://ns.mxhx.dev/2024/tests">

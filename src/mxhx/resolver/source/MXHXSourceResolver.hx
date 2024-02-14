@@ -771,8 +771,7 @@ class MXHXSourceResolver implements IMXHXResolver {
 		qnameToMXHXTypeSymbolLookup.set(qname, result);
 
 		result.params = params != null ? params : [];
-		result.fields = abstractDefinition.data.filter(field -> field.access.indexOf(AStatic) != -1)
-			.map(field -> createMXHXEnumFieldSymbolForAbstractField(field, result));
+		result.fields = abstractDefinition.data.map(field -> createMXHXEnumFieldSymbolForAbstractField(field, result));
 		result.meta = abstractDefinition.meta.copy();
 		return result;
 	}
