@@ -1,8 +1,8 @@
 package mxhx.resolver.source;
 
 import haxe.Resource;
-import mxhx.resolver.IMXHXClassSymbol;
-import mxhx.resolver.IMXHXInterfaceSymbol;
+import mxhx.symbols.IMXHXClassSymbol;
+import mxhx.symbols.IMXHXInterfaceSymbol;
 import utest.Assert;
 import utest.Test;
 

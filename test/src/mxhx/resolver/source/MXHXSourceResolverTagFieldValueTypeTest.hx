@@ -2,10 +2,10 @@ package mxhx.resolver.source;
 
 import haxe.Resource;
 import mxhx.parser.MXHXParser;
-import mxhx.resolver.IMXHXEnumFieldSymbol;
-import mxhx.resolver.IMXHXClassSymbol;
-import mxhx.resolver.IMXHXEnumSymbol;
-import mxhx.resolver.IMXHXTypeSymbol;
+import mxhx.symbols.IMXHXEnumFieldSymbol;
+import mxhx.symbols.IMXHXClassSymbol;
+import mxhx.symbols.IMXHXEnumSymbol;
+import mxhx.symbols.IMXHXTypeSymbol;
 import utest.Assert;
 import utest.Test;
 
