@@ -624,6 +624,37 @@ class MXHXSourceResolver implements IMXHXResolver {
 
 	private function createMXHXEnumFieldSymbolForAbstractField(abstractField:Field, parent:IMXHXEnumSymbol):IMXHXEnumFieldSymbol {
 		var result = new MXHXEnumFieldSymbol(abstractField.name, parent, null);
+		switch (abstractField.kind) {
+			case FVar(t, e):
+				var eString = "";
+				var current = e;
+				while (current != null) {
+					switch (current.expr) {
+						case ECast(e, t):
+							eString += "cast ";
+							current = e;
+						case EConst(CInt(v, s)):
+							eString += Std.string(v);
+							current = null;
+						case EConst(CFloat(f, s)):
+							eString += Std.string(f);
+							current = null;
+						case EConst(CString(s, DoubleQuotes)):
+							eString += '"${s}"';
+							current = null;
+						case EConst(CString(s, SingleQuotes)):
+							eString += '\'${s}\'';
+							current = null;
+						default:
+							eString = null;
+							current = null;
+					}
+				}
+				if (eString != null) {
+					result.inlineExpr = eString;
+				}
+			default:
+		}
 		result.doc = abstractField.doc;
 		result.meta = abstractField.meta != null ? abstractField.meta.copy() : null;
 		return result;
