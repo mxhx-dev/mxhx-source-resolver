@@ -8,7 +8,6 @@
   "classPath": "src",
   "dependencies": {
     "haxeparser": "git:https://github.com/HaxeCheckstyle/haxeparser.git",
-    "mxhx-parser": "git:https://github.com/mxhx-dev/mxhx-parser.git",
     "mxhx-resolver": "git:https://github.com/mxhx-dev/mxhx-resolver.git"
   },
   "contributors": ["bowlerhat"],

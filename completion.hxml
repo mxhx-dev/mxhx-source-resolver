@@ -1,6 +1,5 @@
 -cp src
 -cp src-dev
 -lib haxeparser
--lib mxhx-parser
 -lib mxhx-resolver
 --main Main
