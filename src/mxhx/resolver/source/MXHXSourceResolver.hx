@@ -14,6 +14,7 @@
 
 package mxhx.resolver.source;
 
+import haxe.macro.ExprTools;
 import haxe.macro.Expr.ComplexType;
 import haxe.macro.Expr.Field;
 import haxe.macro.Expr.MetadataEntry;
@@ -609,7 +610,17 @@ class MXHXSourceResolver implements IMXHXResolver {
 		result.doc = field.doc;
 		result.file = field.pos.file;
 		result.offsets = {start: field.pos.min, end: field.pos.max};
-		result.meta = field.meta != null ? field.meta.copy() : null;
+		if (field.meta != null) {
+			result.meta = field.meta.map(m -> {
+				var params:Array<String> = null;
+				if (m.params != null) {
+					params = m.params.map(p -> ExprTools.toString(p));
+				}
+				return {name: m.name, params: params};
+			});
+		} else {
+			result.meta = [];
+		}
 		return result;
 	}
 
@@ -618,7 +629,13 @@ class MXHXSourceResolver implements IMXHXResolver {
 		var args = enumConstructor.args.map(arg -> createMXHXArgumentSymbolForFunctionArg(arg, pack, moduleName, imports));
 		var result = new MXHXEnumFieldSymbol(enumConstructor.name, parent, args);
 		result.doc = enumConstructor.doc;
-		result.meta = enumConstructor.meta != null ? enumConstructor.meta.copy() : null;
+		result.meta = enumConstructor.meta.map(m -> {
+			var params:Array<String> = null;
+			if (m.params != null) {
+				params = m.params.map(p -> ExprTools.toString(p));
+			}
+			return {name: m.name, params: params};
+		});
 		return result;
 	}
 
@@ -664,7 +681,17 @@ class MXHXSourceResolver implements IMXHXResolver {
 			default:
 		}
 		result.doc = abstractField.doc;
-		result.meta = abstractField.meta != null ? abstractField.meta.copy() : null;
+		if (abstractField.meta != null) {
+			result.meta = abstractField.meta.map(m -> {
+				var params:Array<String> = null;
+				if (m.params != null) {
+					params = m.params.map(p -> ExprTools.toString(p));
+				}
+				return {name: m.name, params: params};
+			});
+		} else {
+			result.meta = [];
+		}
 		return result;
 	}
 
@@ -705,7 +732,13 @@ class MXHXSourceResolver implements IMXHXResolver {
 		result.interfaces = resolvedInterfaces;
 		result.params = params != null ? params : [];
 		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports));
-		result.meta = classDefinition.meta.copy();
+		result.meta = classDefinition.meta.map(m -> {
+			var params:Array<String> = null;
+			if (m.params != null) {
+				params = m.params.map(p -> ExprTools.toString(p));
+			}
+			return {name: m.name, params: params};
+		});
 		return result;
 	}
 
@@ -747,7 +780,13 @@ class MXHXSourceResolver implements IMXHXResolver {
 		result.interfaces = resolvedInterfaces;
 		result.params = params != null ? params : [];
 		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports));
-		result.meta = classDefinition.meta.copy();
+		result.meta = classDefinition.meta.map(m -> {
+			var params:Array<String> = null;
+			if (m.params != null) {
+				params = m.params.map(p -> ExprTools.toString(p));
+			}
+			return {name: m.name, params: params};
+		});
 		result.events = classDefinition.meta.map(eventMeta -> {
 			if (eventMeta.name != ":event") {
 				return null;
@@ -811,7 +850,13 @@ class MXHXSourceResolver implements IMXHXResolver {
 
 		result.params = params != null ? params : [];
 		result.fields = abstractDefinition.data.map(field -> createMXHXEnumFieldSymbolForAbstractField(field, result));
-		result.meta = abstractDefinition.meta.copy();
+		result.meta = abstractDefinition.meta.map(m -> {
+			var params:Array<String> = null;
+			if (m.params != null) {
+				params = m.params.map(p -> ExprTools.toString(p));
+			}
+			return {name: m.name, params: params};
+		});
 		return result;
 	}
 
@@ -837,7 +882,13 @@ class MXHXSourceResolver implements IMXHXResolver {
 			fields.push(createMXHXEnumFieldSymbolForEnumField(enumConstructor, result, pack, moduleName, imports));
 		}
 		result.fields = fields;
-		result.meta = enumDefinition.meta.copy();
+		result.meta = enumDefinition.meta.map(m -> {
+			var params:Array<String> = null;
+			if (m.params != null) {
+				params = m.params.map(p -> ExprTools.toString(p));
+			}
+			return {name: m.name, params: params};
+		});
 		return result;
 	}
 
