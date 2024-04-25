@@ -826,10 +826,20 @@ class MXHXSourceResolver implements IMXHXResolver {
 		qnameToMXHXTypeSymbolLookup.set(qname, result);
 
 		result.params = params != null ? params : [];
-		// result.from = abstractType.from.map(from -> {
-		// 	var qname = parserTypeDefToQname(from.t);
-		// 	return resolveQname(qname);
-		// });
+		var imports = resolveImportsForModuleName(moduleName);
+		var from:Array<IMXHXTypeSymbol> = [];
+		for (abstractFlag in abstractDefinition.flags) {
+			switch (abstractFlag) {
+				case AbOver(ct):
+					result.type = resolveComplexType(ct, pack, moduleName, imports);
+				case AbFrom(ct):
+					var fromType = resolveComplexType(ct, pack, moduleName, imports);
+					if (fromType != null) {
+						from.push(fromType);
+					}
+				default:
+			}
+		}
 		return result;
 	}
 
