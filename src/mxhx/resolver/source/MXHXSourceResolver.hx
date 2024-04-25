@@ -828,6 +828,7 @@ class MXHXSourceResolver implements IMXHXResolver {
 		result.params = params != null ? params : [];
 		var imports = resolveImportsForModuleName(moduleName);
 		var from:Array<IMXHXTypeSymbol> = [];
+		var to:Array<IMXHXTypeSymbol> = [];
 		for (abstractFlag in abstractDefinition.flags) {
 			switch (abstractFlag) {
 				case AbOver(ct):
@@ -837,9 +838,16 @@ class MXHXSourceResolver implements IMXHXResolver {
 					if (fromType != null) {
 						from.push(fromType);
 					}
+				case AbTo(ct):
+					var toType = resolveComplexType(ct, pack, moduleName, imports);
+					if (toType != null) {
+						to.push(toType);
+					}
 				default:
 			}
 		}
+		result.from = from;
+		result.to = to;
 		return result;
 	}
 
