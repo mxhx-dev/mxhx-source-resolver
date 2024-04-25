@@ -18,7 +18,7 @@ jobs:
       - name: Set up Haxelib dependencies
         run: |
           haxelib install dox --quiet
-          haxelib git haxeparser https://github.com/HaxeCheckstyle/haxeparser.git --quiet
+          haxelib git haxeparser https://github.com/HaxeCheckstyle/haxeparser.git aaba9287c53af55b253b2d1069582731ffa5f93f --quiet
           haxelib git mxhx-resolver https://github.com/mxhx-dev/mxhx-resolver.git --quiet
           haxelib dev mxhx-source-resolver ${{ github.workspace }}
       - name: Build API reference
