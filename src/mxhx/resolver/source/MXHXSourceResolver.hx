@@ -596,7 +596,8 @@ class MXHXSourceResolver implements IMXHXResolver {
 		}
 	}
 
-	private function createMXHXFieldSymbolForField(field:Field, pack:Array<String>, moduleName:String, imports:Array<TypeDecl>):IMXHXFieldSymbol {
+	private function createMXHXFieldSymbolForField(field:Field, pack:Array<String>, moduleName:String, imports:Array<TypeDecl>,
+			owner:IMXHXTypeSymbol):IMXHXFieldSymbol {
 		var resolvedType = switch (field.kind) {
 			case FVar(t, e):
 				resolveComplexType(t, pack, moduleName, imports);
@@ -622,7 +623,7 @@ class MXHXSourceResolver implements IMXHXResolver {
 		}
 		var isPublic = field.access != null && field.access.indexOf(APublic) != -1;
 		var isStatic = field.access != null && field.access.indexOf(AStatic) != -1;
-		var result = new MXHXFieldSymbol(field.name, resolvedType, isMethod, isPublic, isStatic);
+		var result = new MXHXFieldSymbol(field.name, owner, resolvedType, isMethod, isPublic, isStatic);
 		result.isReadable = isReadable;
 		result.isWritable = isWritable;
 		result.doc = field.doc;
@@ -749,7 +750,7 @@ class MXHXSourceResolver implements IMXHXResolver {
 		}
 		result.interfaces = resolvedInterfaces;
 		result.params = params != null ? params : [];
-		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports));
+		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports, result));
 		result.meta = classDefinition.meta.map(m -> {
 			var params:Array<String> = null;
 			if (m.params != null) {
@@ -797,7 +798,7 @@ class MXHXSourceResolver implements IMXHXResolver {
 		result.superClass = resolvedSuperClass;
 		result.interfaces = resolvedInterfaces;
 		result.params = params != null ? params : [];
-		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports));
+		result.fields = classDefinition.data.map(field -> createMXHXFieldSymbolForField(field, pack, moduleName, imports, result));
 		result.meta = classDefinition.meta.map(m -> {
 			var params:Array<String> = null;
 			if (m.params != null) {
